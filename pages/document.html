@@ -1,0 +1,443 @@
+<style>
+
+h3{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.disabled{
+  display: none;
+}
+
+
+a{
+  color: #000;
+}
+
+#votes:hover{
+  cursor: pointer;
+}
+
+#votes{
+  margin-bottom: 16px;
+  margin-left: 8px;
+  display: inline-block;
+  vertical-align: super;
+}
+
+.votes-item.inactive{
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+   filter: grayscale(100%);
+}
+
+.card{
+  box-shadow: 1px 1px 2px #00000022;
+}
+
+#file-descr{
+    max-width: 400px;
+}
+
+
+
+
+</style>
+
+<page-title>%TITLE%</page-title>
+
+<div class="page-content">
+ <div class="row row-default vertical-align justify-content-center">
+
+
+
+
+  <div style="" class="col-sm-12 col-sm-offset-0" >
+
+
+    <div onmouseleave="resetPreview()" class="thumb-view" style="vertical-align:top;display:inline-block;width:264px;position: relative;">
+      <div id="file-thumb" onclick="openPDFViewer('%PATH%')" style="cursor:pointer;margin-bottom:8px;display:inline-block;width:264px;position:relative;" class="card">
+
+      </div>
+
+
+      <div id="file-thumb-0"  onmouseover='showPreview(0)' style="cursor:pointer; padding:4px;margin-top:0;display:none;width:84px;position:relative;" class="card">
+
+      </div>
+
+      <div id="file-thumb-1"  onmouseover='showPreview(1)' style="cursor:pointer; padding:4px;margin-top:0;display:none;width:84px;position:relative;" class="card">
+
+      </div>
+
+      <div id="file-thumb-2" onmouseover='showPreview(2)' style="cursor:pointer; padding:4px;margin-top:0;display:none;width:84px;position:relative;" class="card">
+
+      </div>
+
+
+    </div>
+
+  <div id="file-descr" style=" display:inline-block;text-align:left;padding-left:32px;">
+
+
+
+   <h2 style="margin-bottom:16px;">%TITLE%</h2>
+
+   <div id="vote-section">
+   <h3>Bewertung</h3>
+   <div id="votes" value="0">
+     <img id="vote-1" vid="1" class="votes-item inactive" style="width:24px;" src="img/logo.png">
+     <img id="vote-2" vid="2" class="votes-item inactive" style="width:24px;" src="img/logo.png">
+     <img id="vote-3" vid="3" class="votes-item inactive" style="width:24px;" src="img/logo.png">
+     <img id="vote-4" vid="4" class="votes-item inactive" style="width:24px;" src="img/logo.png">
+     <img id="vote-5" vid="5" class="votes-item inactive" style="width:24px;" src="img/logo.png">
+   </div>
+   </div>
+   <h3>Beschreibung</h3>
+   <p>%DESCRIPTION%<p>
+
+
+
+        <h3>Sprachlevel</h3>
+        <ul id="tagarea_level" class="tagarea">
+
+        </ul>
+
+        <h3>Schlagworte</h3>
+        <ul id="tagarea" class="tagarea">
+          <li id="-1" title="Keine" class="tag" style="cursor:default;background:#65c93b">Keine</li>
+        </ul>
+
+        <h3>Lizenz</h3>
+        <a href="%LICENSE-URL%"><img src="%LICENSE-LOGO%" alt="lizenz" style="margin-top:0; margin-bottom:32px;"></a>
+        <br>
+        <a onclick="showPrintGuide(%ID%, '%TITLE%', '%PREVIEW_0%', '%PATH%')" style="width:148px;padding:10px 10px!important;;display:block;padding:16px 64px;font-size:24px;" class="btn btn-primary btn-lg" role="button"><img style="width:24px;margin-right:8px;" src="img/printer.svg">drucken</a>
+
+
+  </div>
+  <p class="clearing" style="clear:both;width:0;"></p>
+
+</div>
+
+
+
+
+</div>
+
+
+
+<div id ="additional-documents" class="row row-default  justify-content-center" style="padding:48px;background:white;">
+  <h1 style="margin-left:0;margin-right:0;margin-top:8px;margin-bottom:48px;">Zugehörige Arbeitsblätter</h1>
+
+</div>
+
+
+<div id ="additional-files" class="row row-default justify-content-center" style="background:white;padding:64px;display:none;">
+  <h1 style="margin-left:0;margin-right:0;margin-top:8px;margin-bottom:48px;">Zusätzliche Dateien</h1>
+  <div  id="file-browser"></div>
+</div>
+
+
+<div id ="discussion" class="row row-default justify-content-center" style="padding:64px;">
+
+<div style="margin-top:64px;" class="col-lg-6 col-md-8 col-xs-12">
+
+  <div id="disqus_thread"></div>
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+<script>
+
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'document-%ID%:%TITLE%' ; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://didb.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+
+var documentItem = '<div id="document-%ID1%" style="width:200px;margin-left:16px;margin-right:16px;vertical-align:top;display:inline-block"><div class="card clickable"><a href="?p=document&doc=%ID1%#skipheader"><img src="%PREVIEW1%" style="width:100%;"></a></div><h3></h3><h4>%TITLE1%</h4></div>';
+var fileItem = '<a href="%PATH1%" download><div style="cursor:pointer;display:inline-block" id="document-%ID1%" class="col-xs-6 col-sm-4 col-md-1 col-lg-2 "><div class="card" style="margin:0 32px;padding:64px;"><img src="%PREVIEW1%" style="width:100%;"></div><h3></h3><h4 style="color:#000;">%TITLE1%</h4></div></a>';
+
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+
+previews = [];
+dtype = null;
+
+
+function createItem(document){
+    var out = documentItem;
+    out = out.replaceAll('%ID1%', document.id);
+    out = out.replaceAll('%TITLE1%', document.title);
+    out = out.replaceAll('%DESCRIPTION1%', document.description);
+    out = out.replaceAll('%PREVIEW1%', document.thumb);
+    out = out.replaceAll('%TYPE1%', document.type);
+
+    return out;
+}
+
+
+function createFile(file){
+  console.log(file);
+
+    var out = fileItem;
+    out = out.replaceAll('%ID1%', file.id);
+    out = out.replaceAll('%TITLE1%', file.title);
+    out = out.replaceAll('%DESCRIPTION1%', "");
+    out = out.replaceAll('%PATH1%', file.path);
+    out = out.replaceAll('%PREVIEW1%', "img/file.svg");
+    out = out.replaceAll('%TYPE1%', "file");
+
+    return out;
+}
+
+
+loadPreview(%PAGES%, '%PATH%', '%TYPE%');
+
+
+function loadAdditionalFiles(){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      onFilesFetched(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "api/connected_files.php?id=%ID%", true);
+  xhttp.send();
+
+}
+
+function openPDFViewer(path){
+  fenster = window.open(path + 'original.pdf', "Preview", "status=yes,scrollbars=yes,resizable=yes");
+  fenster.focus();
+}
+
+function onFilesFetched(json){
+
+  if(json.data.titles.length >= 1){
+    $('#additional-files').css('display', 'block');
+  }
+
+  console.log(json);
+  files = [];
+  for(var i=0; i<json.data.titles.length; i++){
+    files.push({"id" : json.data.ids[i], "title" : json.data.titles[i], "path": json.data.paths[i]});
+  }
+  updateFileList();
+}
+
+function updateFileList(){
+  $('#file-browser').empty();
+
+  for(var i=0; i<files.length; i++){
+    $('#file-browser').append(createFile(files[i]));
+  }
+
+}
+
+
+
+function loadPreview(pages, path, type){
+
+  dtype = type;
+
+  if(type == 'Leporello'){
+    document.getElementById('file-thumb').innerHTML = '<img class="expand-item" src="img/expand.svg" style="width:48px;background:#fff;padding:4px;border-radius:4px;opacity:0.8;position:absolute; right:8px;bottom:8px;"><div style="margin-left:60px;width: 140px;overflow:hidden;"><img id="preview_0" src="' + path +'thumb-2.jpg" style="margin-left:-150px;width:230px"></div>';
+  }else{
+
+    document.getElementById('file-thumb').innerHTML = '<img class="expand-item" src="img/expand.svg" style="width:48px;background:#fff;padding:4px;border-radius:4px;opacity:0.8;position:absolute; right:8px;bottom:8px;"><img id="preview_0" src="' + path +'thumb-0.jpg" style="width:100%">';
+  }
+
+  for(var i=0; i < Math.min(3, pages); i++){
+    previews.push( path +'thumb-'+ i +'.jpg"');
+    document.getElementById('file-thumb-' + i).style.display = 'inline-block';
+    document.getElementById('file-thumb-' + i).innerHTML = '<img id="preview_' + i + '"  src="' + path +'thumb-'+ i +'.jpg" style="width:100%">';
+  }
+
+}
+
+function resetPreview(){
+  if(dtype == 'Leporello'){
+    document.getElementById('file-thumb').innerHTML = '<img class="expand-item" src="img/expand.svg" style="width:48px;background:#fff;padding:4px;border-radius:4px;opacity:0.8;position:absolute; right:8px;bottom:8px;"><div style="margin-left:60px;width: 140px;overflow:hidden;"><img id="preview_0" src="'+ previews[2]  +'" style="margin-left:-150px;width:230px"></div>';
+  }else{
+
+    document.getElementById('file-thumb').innerHTML = '<img class="expand-item" src="img/expand.svg" style="width:48px;background:#fff;padding:4px;border-radius:4px;opacity:0.8;position:absolute; right:8px;bottom:8px;"><img id="preview_0" src="'+ previews[0]  +'" style="width:100%">';
+  }
+
+}
+
+function showPreview(id){
+  document.getElementById('file-thumb').innerHTML = '<img class="expand-item" src="img/expand.svg" style="width:48px;background:#fff;padding:4px;border-radius:4px;opacity:0.8;position:absolute; right:8px;bottom:8px;"><img id="preview_0" src="'+ previews[id]  +'" style="width:100%">';
+}
+
+
+function onTagsAppear(){
+  loadDocumentTags();
+}
+
+
+ function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+
+function loadDocumentTags(){
+
+  if(getParameterByName('doc') == null){
+    return;
+  }
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      onDocumentTagsFetched(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "api/document_tags.php?id=%ID%", true);
+  xhttp.send();
+
+}
+
+
+function loadConnectedDocuments(){
+
+  if(getParameterByName('doc') == null){
+    return;
+  }
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      onConnectedDocumentsFetched(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "api/connected_docs.php?id=%ID%", true);
+  xhttp.send();
+
+}
+
+
+
+function Document(i, ti, d, ty,p, pdf, t){
+   this.id = i;
+   this.title = ti;
+   this.description = d;
+   this.type = ty;
+   this.path = p;
+   this.pdf = pdf;
+   this.thumb = t;
+}
+
+
+
+function onConnectedDocumentsFetched(obj){
+  console.log();
+  if(obj.data.ids.length !=0){
+    $('#additional-documents').css('display', 'block');
+
+    for(var i=0; i<obj.data.ids.length; i++){
+      var doc = new Document(obj.data.ids[i], obj.data.titles[i], obj.data.descriptions[i], null, obj.data.paths[i], null, obj.data.thumbs[i]);
+      $('#additional-documents').append(createItem(doc));
+    }
+  }
+}
+
+
+
+$('.votes-item').hover(function(){
+  initVotes($(this).attr('vid'))
+});
+
+$('.votes-item').click(function(){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var data = JSON.parse(this.responseText);
+
+      if(data.status == 'error'){
+          alert(data.message);
+      }else{
+        location.reload();
+      }
+
+    }
+  };
+  xhttp.open("GET", "api/save_document_vote.php?id=%ID%&rating=" + $(this).attr('vid'), true);
+  xhttp.send();
+
+});
+
+
+
+
+function onDocumentTagsFetched(object){
+  for(var i=0; i< object.data.tags.length; i++){
+    switchTag('tag' + object.data.tags[i]);
+  }
+  for(var i=0; i< object.data.levels.length; i++){
+    switchTag('level' + object.data.levels[i]);
+  }
+
+  for(var i=0; i< object.data.types.length; i++){
+    switchTag('type' + object.data.types[i]);
+  }
+}
+
+
+$('#votes').mouseleave(function(){
+  initVotes(%RATING%);
+});
+
+function initVotes(c){
+  if(c == null){
+   $('#vote-section').hide();
+  }
+  console.log("init votes "+ c)
+
+  for(var i=1; i<=5; i++){
+     if(i<=c){
+        $('#vote-' + i).removeClass('inactive');
+     }else{
+         $('#vote-' + i).addClass('inactive');
+     }
+  }
+}
+
+
+
+loadConnectedDocuments();
+loadTags();
+loadLevel();
+loadAdditionalFiles();
+
+initVotes(%RATING%);
+
+</script>

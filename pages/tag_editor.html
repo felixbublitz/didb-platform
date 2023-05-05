@@ -1,0 +1,127 @@
+<script>
+
+
+  function allowDrop(ev) {
+      ev.preventDefault();
+  }
+
+  function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+    if($(event.target).hasClass('dropZone')){
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      if($('#'+data).hasClass('dragElement')){
+      ev.target.appendChild(document.getElementById(data));
+
+      var dbid = $('#'+data).attr('dbid');
+
+      var sql = new SQLQuery();
+      sql.setMethod('update');
+      sql.setFrom('didb_tags');
+      sql.add('category', $('#'+event.target.id).attr('cid'));
+      sql.setWhere('id', dbid);
+      sql.query();
+
+
+      }
+      }
+  }
+
+
+  function colorChanged(cid){
+    var newColor = $('#color-'+cid).val();
+
+    var sql = new SQLQuery();
+    sql.setMethod('update');
+    sql.setFrom('didb_tags_categories');
+    sql.add('color', newColor);
+    sql.setWhere('id', cid);
+    sql.query();
+
+    $('#cat-title-'+cid).css('background', newColor);
+
+
+  }
+
+
+
+
+  String.prototype.replaceAll = function(search, replacement) {
+      var target = this;
+      return target.replace(new RegExp(search, 'g'), replacement);
+  };
+
+var cat ='<div class="col-xl-3 col-lg-4 col-md-5 col-xs-12" style="padding:12px;"><div style="background:#fff;border:1px solid #ccc;"><label style="cursor:pointer;width:100%;" for="color-%ID%"><div id="cat-title-%ID%" style="padding:16px;background:%COLOR%;"><h1 style="margin:0px;margin-bottom:8px;color:#444;">%NAME%</h1></div></label><input type="color" onchange="colorChanged(%ID%)" id="color-%ID%" value="%COLOR%" style="display:none;"><div class="dropZone" cid="%ID%" ondrop="drop(event)" ondragover="allowDrop(event)" id="tags-%ID%" style="padding:16px;"></div></div></div>';
+
+var sql = new SQLQuery();
+sql.setMethod('select');
+sql.setFrom('didb_tags_categories');
+sql.add('id');
+sql.add('name');
+sql.add('color');
+sql.query(function(data){
+  for(var i=0; i<data.id.length; i++){
+    var out = cat.replaceAll('%NAME%', data.name[i]);
+    var out = out.replaceAll('%COLOR%', data.color[i]);
+    var out = out.replaceAll('%ID%', data.id[i]);
+    $('#inner').append(out);
+  }
+  getTags();
+
+});
+
+function createTagElement(tag, index){
+  var out = '<li draggable="true" ondragstart="drag(event)" dbid="%DBID%" id="%ID%" cid="%CID%" title="%DESCRIPTION%" class="dragElement tag disabled" style="cursor:default;background:%BG%">%TITLE%</li>';
+  out = out.replaceAll('%ID%', tag.id);
+  out = out.replaceAll('%DBID%', tag.dbid);
+  out = out.replaceAll('%TITLE%', tag.title);
+  out = out.replaceAll('%DESCRIPTION%', tag.description);
+  out = out.replaceAll('%BG%', tag.color);
+  out = out.replaceAll('%CID%', tag.colorID);
+  return out;
+}
+
+
+
+
+function getTags(){
+  var sql = new SQLQuery();
+  sql.setMethod('select');
+  sql.setFrom('didb_tags');
+  sql.add('id');
+  sql.add('description');
+  sql.add('title');
+  sql.add('category');
+
+  sql.query(function(data){
+    for(var i=0; i<data.id.length; i++){
+        $('#tags-' + data.category[i]).append(createTagElement(new Tag('tag',data.id[i], data.title[i], data.description[i], '#444',0)));
+    }
+  });
+}
+
+
+
+
+
+
+</script>
+
+
+<div class="page-content">
+ <div id="inner" class="row row-default vertical-align justify-content-center  ">
+
+
+
+ </div>
+
+
+
+
+
+
+
+</div>

@@ -1,0 +1,8 @@
+user/
+config/
+data/tcpdf
+data/PDFMerger.php
+js/jquery-3.2.1.min.js
+js/jquery.transit.min.js
+js/bootstrap.min.js
+js/bootstrap.js

@@ -1,0 +1,198 @@
+<div class="splash-image" style="position:relative;">
+  <div style="position:absolute;" class="splash-image-loading">
+    <h1 style="margin:0;position: absolute; top:20%;left:0;right:0;font-size:32px;">Wir suchen gerade ein schönes Bild heraus...</h1>
+  </div>
+
+</div>
+
+
+
+<div class="page-content">
+
+
+
+  <div id="about" class="row row-default justify-content-center" style="background:white;">
+
+     <div class="col-lg-8">
+    <h1 style="margin-left:0;margin-right:0;margin-top:0px;margin-bottom:32px;">Was ist Deutschkurs in der Box?</h1>
+    <p>
+      Unsere Idee ist es eine Box zu schaffen, die Material (Poster, Spiele, Bilder…) für ehrenamtliche Deutschkurse für AsylbewerberInnen enthält. Aus eigener Erfahrung mit dieser Art des Deutschunterrichts haben wir nämlich festgestellt, dass viele Deutschlehrende eine neue Art von materieller Unterstützung bräuchten. Sie wissen oft nicht, was sie unterrichten sollen, wie sie den Kurs lustig aber strukturiert gestalten können, oder wie sie auf die Wünsche und Bedürfnisse der Deutschlernenden besser eingehen können. Deswegen wollen wir eine Art Box schaffen, die man sich wie einen bestellbaren, günstigen Karton mit Material vorstellen kann. Vielleicht werden sich durch dieses Angebot auch mehr Leute trauen, einen ehrenamtlichen Deutschkurs anzubieten. Das Projekt ist nicht profit-orientiert, und das Material wird dann in einem offenen Format auf Internet zum Nachdruck frei verfügbar gemacht.
+    </p>
+    </div>
+  </div>
+
+
+ <div id="browse" class="row row-default vertical-align justify-content-center">
+
+   <div class="col-12">
+    <h1 style="margin-left:0;margin-right:0;margin-top:0px;margin-bottom:48px;">Leporellos durchstöbern</h1>
+  </div>
+   <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6  ">
+
+    <div style="position:relative;width:100%; " id="browser">
+
+      <div id="browse-item-left-new" class="card" style="opacity:0;margin:0px;left:33.333%;position:absolute;width:33.333%;-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1) skew(0deg, -15deg) scale3d(0.9, 1, 1) translate3d(-105%, -9%, 0px);">
+        <img id="browse-item-left-new-img" src="img/documents/loading.png" style="width:100%;">
+      </div>
+
+      <div onclick="swapRight()" id="browse-item-left" class="card" style="cursor:pointer;position:absolute;left:33.333%;margin:0px;width:33.333%;-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1) skew(0deg, -15deg) scale3d(0.9, 1, 1) translate3d(-105%, -9%, 0px);">
+        <img id="browse-item-left-img" src="img/documents/loading.png" style="width:100%;">
+        <img id="browse-arrowLeft" class="browse-arrow" src="img/left.png" >
+      </div>
+
+       <div id="browse-item-middle" class="card" style="z-index:3;margin:0px;position:absolute;width:33.333%;left:33.333%;cursor:pointer;   box-shadow: 0px 0px 0px 0px rgba(136, 136, 136, 0.59);">
+        <img id="browse-item-middle-img" src="img/documents/loading.png" style="width:100%;">
+      </div>
+
+      <div id="browse-item-right-new" class="card" style="z-index:1;opacity:0;margin:0px;left:33.333%;position:absolute;width:33.333%;-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1) skew(0deg, 15deg) scale3d(0.9, 1, 1) translate3d(105%, -9%, 0px);">
+        <img id="browse-item-right-new-img" src="img/documents/loading.png" style="width:100%;">
+      </div>
+
+      <div onclick="swapLeft()" id="browse-item-right" class="card" style="z-index:1;cursor:pointer;margin:0px;left:33.333%;position:absolute;width:33.333%;-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1) skew(0deg, 15deg) scale3d(0.9, 1, 1) translate3d(105%, -9%, 0px);">
+        <img id="browse-item-right-img" src="img/documents/loading.png" style="width:100%;">
+        <img id="browse-arrowRight" src="img/right.png" class="browse-arrow" >
+      </div>
+
+    </div>
+    </div>
+
+    <div class="col-sm-8 ">
+
+      <div id="browse-description" style="margin-top:0px;">
+        <h2 id="browse-description-headline" style="margin-top:0"></h2><p id="browse-description-p"></p>
+      </div>
+
+    </div>
+
+
+</div>
+
+
+<div id="search" class="row row-default justify-content-center" style="background:white;">
+
+  <div class="col-12">
+  <h1 style="margin-left:0;margin-right:0;margin-top:0px;margin-bottom:32px;">Suchst du was bestimmtes?</h1>
+  </div>
+  <div class="col-12">
+<h4>Sprachlevel</h4>
+    <ul id="tagarea_level" class="tagarea">
+
+    </ul>
+
+
+  </div>
+
+  <div style="margin-top:8px;margin-bottom:16px;" class=" col-lg-5 col-md-8">
+<h4>Schlagworte</h4>
+    <ul id="tagarea" class="tagarea">
+
+    </ul>
+
+
+</div>
+
+<div style="margin-top:16px" class="col-12" align="center">
+  <a onclick="searchDoc(2);" style="width:148px;padding:10px 10px!important;;display:block;padding:16px 64px;font-size:24px;" class="btn btn-primary btn-lg" role="button"><img style="width:24px;margin-right:8px;" src="img/search.svg">Suchen</a>
+
+</div>
+
+</div>
+
+
+
+
+
+
+ <div id="news" class="row row-default justify-content-center" style="">
+
+       <div class="col-lg-8">
+      <h1 style="margin-left:0;margin-right:0;margin-top:0px;margin-bottom:32px;">Neuigkeiten</h1>
+
+      </div>
+
+      <div style="cursor:pointer;" onclick="window.location.href = '?p=news'" class = "col-lg-8 col-md-6 col-sm-12">
+          <div class="news-date">%DATE_0%</div>
+          <div class="news-item clickable">
+            <div class="news-headline">%TITLE_0%</div>
+            <div class="news-body">%BODY_0%</div>
+          </div>
+          <p style="margin-top:16px;">mehr...</p>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+<div id="motivation" class="row row-default justify-content-center" style="background:white;">
+
+  <div class="col-12">
+  <h1 style="margin-left:0;margin-right:0;margin-top:0px;margin-bottom:48px;">Unsere Motivation</h1>
+  </div>
+
+  <div class="col-xs-12 col-md-10 col-sm-12 col-lg-7 ">
+
+    <div id="motivation-bubble" style="-webkit-filter: drop-shadow(1px 1px 4px #ccc);
+  filter: drop-shadow(1px 1px 4px #ccc);">
+    <div style="background:#07afd6; padding: 4px 8px; border-radius: 24px;">
+
+
+      <p id="motivation-description" style="margin:28px 0px;font-size:20px;color:white!important"></p>
+
+
+    </div>
+    <img style="margin:0;" src="img/bubble_2.png"></div>
+    <div id="motivation-about">
+    <img class="motivation-thumb" id="motivation-thumb" style="-webkit-filter: drop-shadow(1px 1px 4px #ccc);
+  filter: drop-shadow(1px 1px 4px #ccc);margin-top:8px;margin-bottom:8px;width:128px;height:128px;" class="img-circle">
+    <p id="motivation-author" style="margin-top:0;margin-bottom:0;font-size:24px;color:black!important"></p>
+    <p id="motivation-position" style="margin-top:0;font-size:16px;color:black!important"></p>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+</div>
+
+<script>
+enableClickableTags();
+loadLeporellos();
+loadMotivations();
+loadTags();
+loadLevel();
+
+$( window ).resize(function() {
+  $("#browser").height($("#browse-item-left").height()+80);
+
+});
+$('#browse-item-left').ready(function(){
+    $("#browser").height($("#browse-item-left").height()+80);
+window.setTimeout(function(){
+  $("#browser").height($("#browse-item-left").height()+80);
+},500);
+
+
+});
+
+
+
+$(function(){
+    var bgimage = new Image();
+    bgimage.src="img/splash.jpg";
+
+    $(bgimage).on('load', function(){
+      $(".splash-image").css("background-image","url("+$(this).attr("src")+")");
+
+        $(".splash-image-loading").fadeOut();
+    });
+});
+
+</script>
+
+<script src="js/home.js"></script>

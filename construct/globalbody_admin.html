@@ -1,0 +1,48 @@
+<body>
+ <div class="print-guide" id="print-guide">
+  <iframe allowtransparency="true" id="print-guide-iframe" style="width:100%; background: white;height:100%; border:0;"></iframe>
+  <img class="print-guide-exit" src="img/delete.svg" width="42" onclick="hidePrintGuide()">
+</div>
+
+
+<div class="hint-arrow" id="hint-arrow">
+  <img src="img/hintarrow.png">
+</div>
+
+
+<nav class="navbar navbar-default navbar-expand-lg"  style="font-weight: 600;font-size: 18px; background:#65c93b;color:#fff;">
+    <a class="navbar-brand" style="" href="/"><img style="-webkit-filter: drop-shadow(1px 1px 2px #1515158c);
+    filter: drop-shadow(1px 1px 2px #1515158c);display:inline;width:42px; margin-left:16px;margin-right:8px" src="img/logo.png" /><p style="font-family: 'Amatic SC', cursive;
+    text-shadow: 1px 1px 12px #151515c2;    color: #fff;vertical-align: middle;padding:0;margin:0;display:inline-block;">Deutschkurs in der Box</p></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a  class="nav-link" href="javascript:changePage('?p=browse')"></a></li>
+        <li class="nav-item"><a  class="nav-link" href="javascript:changePage('?p=admin')">Übersicht</a></li>
+
+        <li class="nav-item"><a  class="nav-link" href="javascript:changePage('?p=documentlist')">Leporellos und Dokumente</a></li>
+
+        <li class="nav-item"><a  class="nav-link" href="javascript:changePage('?p=news')">Blogeinträge</a></li>
+        <li class="nav-item"><a  class="nav-link" href="javascript:changePage('?p=motivation_editor')">Motivationen</a></li>
+        <li class="nav-item"><a  class="nav-link" href="javascript:changePage('https://didb.disqus.com/admin/')">Disqus</a></li>
+        <li class="nav-item"><a  class="nav-link" href="javascript:changePage('?action=logout')">Ausloggen</a></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <li class="nav-item"><a href="?p=print"><img style="-webkit-filter: drop-shadow(1px 1px 1px #1px 1px 1px #00000052);
+        filter: drop-shadow(1px 1px 1px #00000052);width:24px;" src="img/printer.svg"></a></li>
+
+
+
+      </ul>
+
+    </div>
+  </nav>
+
+
+<div id="content-box" style="display:none;">

@@ -1,0 +1,720 @@
+<style>
+.h2{
+  width: 100%;
+  font-size: 32px;
+  background: none;
+  border: 1px solid #ccc;
+  padding: 12px 16px;
+  color: #545454;
+  background: white;
+  border-radius: 4px;
+}
+
+#additional-documents{
+  display: block;
+}
+
+.btn-upload{
+  border: 1px dashed #ccc;
+  background-color: white;
+  height: 100px;
+  width: 100px;
+  background-image: url('img/copy.svg');
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
+}
+
+.btn-upload-selected{
+  background-image: url('img/loading.gif');
+  background-size: 200px;
+}
+
+
+.btn-upload:active{
+  border: 1px dashed #ccc;
+  background-color: white;
+  height: 100px;
+  width: 100px;
+  background-image: url('img/copy.svg');
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#file-input-pdf{
+  display: none;
+}
+
+h3{
+  font-size: 14px;
+  font-weight: bold;
+
+}
+
+
+@media screen and (max-width: 560px) {
+  #thumb{
+    float: center;
+  }
+
+  #descr{
+    width: 100%;
+    text-align: center!important;
+    padding-left: 0!important;
+    float:center;
+  }
+}
+@media screen and (min-width: 561px) {
+  #thumb{
+    float: left;
+  }
+
+  #descr{
+    width: 700px;
+    float:left;
+  }
+}
+
+
+
+
+.p{
+  width: 100%;
+  font-size: 20px;
+  background: none;
+  border: 1px solid #ccc;
+  padding: 12px 16px;
+  color: #757575;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  background: white;
+}
+</style>
+
+
+
+<div class="page-content">
+ <div class="row row-default vertical-align">
+
+  <div style="" class="col-sm-12 col-sm-offset-0" >
+
+      <div style="display:inline-block;">
+
+   <div id="thumb">
+    <div class="card" style="width:264px;position:relative;">
+      <div id="image-upload">
+
+        <!-- <label for="file-input">
+          <img id="preview_image" src="%PREVIEW%" width="100%" style="opacity:0.7;cursor:pointer" />
+          <div style="opacity:0.8;cursor:pointer;position:absolute; width:128px; height:128px; left:50%; top:50%; margin-left:-64px; margin-top:-64px;">
+              <img src="img/upload.png" width="100%" style="margin:0;" />
+          </div>
+        </label> -->
+
+        <label style="position:relative;min-height:350px;width:100%;" id="upload-btn" class="btn btn-upload">
+          <p id="thumb-text" style="position:absolute;bottom:100px;color:#3e3e3e;left:0;right:0;">PDF</p>
+
+
+          <input id="file-input-pdf" type="file" style="display: none;">
+
+        </label>
+
+
+
+       <!-- <input id="file-input" type="file"/>-->
+      </div>
+    </div>
+  </div>
+
+  <div id="descr" style="text-align:left;text-align:left;padding-left:32px;">
+    <div style="display:relative">
+   <input style="display:inline-block;width:20%" id="form-uid" class="h2" placeholder="ID" value="%UID%" />
+   <input style="display:inline-block;width:79%" id="form-title" class="h2" placeholder="Titel" value="%TITLE%" />
+ </div>
+
+
+   <textarea id="form-description" placeholder="Beschreibung" rows="10" cols="1" class="p summernote">%DESCRIPTION%</textarea>
+
+
+   <h3>Lizenz</h3>
+   <select id="license" class="content-licenses" style="margin-bottom:16px; background:white; border: 1px solid #ccc; padding:8px;border-radius:4px"></select>
+
+
+   <h3>Typ</h3>
+   <ul id="tagarea_type" class="tagarea">
+
+   </ul>
+
+
+   <h3>Sprachlevel</h3>
+   <ul id="tagarea_level" class="tagarea">
+
+   </ul>
+
+   <h3>Tags</h3>
+   <ul id="tagarea" class="tagarea tageditor">
+
+   </ul>
+<hr />
+   <a style="padding:8px 32px;font-size:20px;" class="btn btn-primary btn-lg" onclick="saveDocument(function(){document.location = '/documentlist';})" role="button">speichern</a>
+
+  </div>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div id ="additional-documents" class="row row-default" style="background:white;padding:64px;">
+  <h1 style="margin-left:0;margin-right:0;margin-top:8px;margin-bottom:48px;">Zugehörige Arbeitsblätter</h1>
+
+  <div id="add-documents-browser"></div>
+
+</div>
+
+
+
+
+<div id ="additional-files" class="row row-default  justify-content-center" style="padding:64px;">
+  <h1 style="margin-left:0;margin-right:0;margin-top:8px;margin-bottom:48px;width:100%;">Zusätzliche Dateien</h1>
+    <div style="width:100%" id="file-browser">
+    </div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+  function showCatEditor(){
+      $('#cat-editor').show();
+  }
+
+
+  function closeCatEditor(){
+    $('#cat-editor').hide();
+  }
+
+
+function getDocumentById(id){
+  for(var i=0; i<documents.length;i++){
+    if(documents[i].id == id)
+      return documents[i];
+  }
+  return null;
+}
+
+
+function switchDocument(id){
+  console.log(id);
+
+  doc = getDocumentById(id);
+  if(doc.enabled){
+    $("#document-"+id).addClass("disabled");
+    doc.enabled = false;
+  }else{
+    $("#document-"+id).removeClass("disabled");
+    doc.enabled = true;
+  }
+
+ }
+
+
+
+var documentItem = '<div style="cursor:pointer;display:inline-block" onclick="switchDocument(\'%ID1%\')" id="document-%ID1%" class="disabled col-xs-6 col-sm-4 col-md-2 col-lg-2 "><div class="card"><img src="%PREVIEW1%" style="width:100%;"></div><h3></h3><h4>%TITLE1%</h4></div>';
+var newItem = '<div class="col-sm-2 col-md-2 col-lg-2 "><div style="cursor:pointer" onclick="showDocumentExplorer()" class="card"><img src="img/documents/1.png" style="width:100%; opacity:0.4"><p class="watermark">+</p></div><h3></h3><h4>hinzufügen</h4></div>'
+var fileItem = '<div style="padding:32px;cursor:pointer;display:inline-block" id="document-%ID1%" class="col-xs-6 col-sm-4 col-md-1 col-lg-2 "><p style="z-index:2;top:16px;right:16px;" onclick="removeFile(%ID1%)" class="button-remove"></p><a href="%PATH1%" download><div class="card" style="margin:0 0;padding:64px;"><img src="%PREVIEW1%" style="width:100%;"></div><h3></h3><h4 style="color:#000;">%TITLE1%</h4></a></div>';
+
+
+var thumb;
+var pdf;
+var path;
+
+loadLicenses();
+
+
+
+function loadLicenses(){
+  sql = new SQLQuery();
+  sql.setMethod('select');
+  sql.add('id');
+  sql.add('title');
+  sql.setFrom('didb_licenses');
+  sql.setWhere('enabled', 1);
+  sql.setOrder('id');
+  sql.query(function(obj){
+    for(var i=0; i<obj.id.length; i++){
+      enabled = false;
+      if(obj.id[i] == %LICENSE%){
+        enabled = true;
+      }
+      $('.content-licenses').append($('<option>', {
+    value: obj.id[i],
+    selected: enabled,
+    text: obj.title[i]}));
+    }
+  });
+}
+
+
+
+function removeFile(id){
+  sql1 = new SQLQuery();
+  sql1.setMethod('delete');
+  sql1.setFrom('didb_files');
+  sql1.setWhere('id', id);
+  sql1.query();
+
+  sql2 = new SQLQuery();
+  sql2.setMethod('delete');
+  sql2.setFrom('didb_documents_additional_files');
+  sql2.setWhere('file_id', id);
+  sql2.query();
+
+  location.reload();
+}
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+if('%PREVIEW%' != ''){
+  loadImageDirty('%PREVIEW%');
+}
+
+
+function createFile(file){
+  console.log(file);
+
+
+    var out = fileItem;
+    out = out.replaceAll('%ID1%', file.id);
+    out = out.replaceAll('%TITLE1%', file.title);
+    out = out.replaceAll('%PATH1%', file.path);
+    out = out.replaceAll('%PREVIEW1%', "img/file.svg");
+    out = out.replaceAll('%TYPE1%', "file");
+
+    return out;
+}
+
+
+function createItem(document){
+  console.log(document);
+    var out = documentItem;
+    out = out.replaceAll('%ID1%', document.id);
+    out = out.replaceAll('%TITLE1%', document.title);
+    out = out.replaceAll('%DESCRIPTION1%', document.description);
+    out = out.replaceAll('%PREVIEW1%', document.thumb);
+    out = out.replaceAll('%TYPE1%', document.type);
+
+    return out;
+}
+
+
+function loadConnectedDocuments(){
+
+  if(getParameterByName('doc') == null){
+    return;
+  }
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      onConnectedDocumentsFetched(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "api/connected_docs.php?id=%ID%", true);
+  xhttp.send();
+
+}
+
+
+
+function onConnectedDocumentsFetched(obj){
+
+  if(obj.data.ids.length !=0){
+
+    for(var i=0; i<obj.data.ids.length; i++){
+      switchDocument(obj.data.ids[i]);
+    }
+  }
+}
+
+
+
+
+function saveDocument(done){
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && (this.status == 200)) {
+      done();
+    }
+  };
+
+  var prev = $('#preview_image').attr('src');
+
+  var title = $('#form-title').val();
+  var uid = $('#form-uid').val();
+  var descr = $('#form-description').val();
+
+  var license = $('#license').val();
+
+
+  var action = 'add';
+
+  if(getParameterByName('doc') != null){
+    action = 'update';
+  }
+
+  var formData = new FormData();
+  formData.append('request', JSON.stringify({
+    'id' : %ID%,
+    'uid' : uid,
+    'preview' : prev,
+    'license' : license,
+    'title' : title,
+    'types' : JSON.stringify(types),
+    'levels' : JSON.stringify(levels),
+    'add-docs' : JSON.stringify(documents),
+    'tags' : JSON.stringify(tags),
+    'path' : path,
+    'pdf' : pdf,
+    'thumb' : thumb,
+    'description' : descr,
+    'action' : action
+  }));
+
+  xhttp.open("POST", 'api/save_document.php', true);
+  xhttp.send(formData);
+}
+
+
+function uploadPDF(onFinish){
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && (this.status == 200)) {
+      if(onFinish){
+      onFinish(JSON.parse(this.responseText));
+      }
+    }
+  };
+
+  var file = document.getElementById('file-input-pdf');
+  var formData = new FormData();
+  formData.append('pdf', file.files[0]);
+
+  xhttp.open("POST", 'api/upload_pdf.php', true);
+
+  xhttp.send(formData);
+}
+
+
+$("#file-input-pdf").change(function(){
+  uploadPDF(loadImage);
+ });
+
+
+ function loadImage(json){
+   if(json.status == 'success'){
+
+     thumb = json.data.thumb
+     pdf = json.data.filename;
+     path = json.data.path;
+
+
+     $('#upload-btn').css('background-image', 'url(' + path + thumb[0] + ')');
+     $('#upload-btn').css('background-size', '100%');
+     $('#thumb-text').hide();
+   }
+ }
+
+
+ function loadImageDirty(img){
+
+     $('#upload-btn').css('background-image', 'url(' +img + ')');
+     $('#upload-btn').css('background-size', '100%');
+     $('#thumb-text').hide();
+
+ }
+
+
+
+
+
+ $(document).ready(function ()
+ {
+     jQuery(window).bind('beforeunload', function ()
+     {
+      // saveDocument();
+     });
+ });
+
+
+
+ function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+
+function loadDocumentTags(){
+
+  if(getParameterByName('doc') == null){
+    return;
+  }
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      onDocumentTagsFetched(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "api/document_tags.php?id=%ID%", true);
+  xhttp.send();
+
+}
+
+
+
+function onDocumentTagsFetched(object){
+  if(loadedTags <3){
+    onDocumentTagsFetchedObject = object;
+    return;
+  }
+
+
+  for(var i=0; i< object.data.tags.length; i++){
+    switchTag('tag' + object.data.tags[i], true);
+  }
+  for(var i=0; i< object.data.levels.length; i++){
+    switchTag('level' + object.data.levels[i],true);
+  }
+
+  for(var i=0; i< object.data.types.length; i++){
+    switchTag('type' + object.data.types[i], true);
+  }
+}
+
+
+
+
+function onTagsAppear(){
+  loadDocumentTags();
+  $('#tagarea').append('<li onclick="addTag(1)" id="addTagButton1" class="tag" style="background:#fff;color:black;">+</li><li id="addTagInput1" style="display:none;width:0;padding:7px 16px;background:#fff;color:black;" class="tag"><input id=\'newTagInput\' onblur="saveNewTag(\'newTagInput\')"/></li>');
+}
+
+function onTypesAppear(){
+  //$('#tagarea_type').append('<li onclick="addTag(2)" id="addTagButton2" class="tag">+</li><li id="addTagInput2" style="display:none;padding:7px 16px" class="tag"><input/></li>');
+
+}
+
+
+function Document(i, ti, d, ty,p, pdf, t){
+   this.id = i;
+   this.title = ti;
+   this.description = d;
+   this.type = ty;
+   this.path = p;
+   this.pdf = pdf;
+   this.thumb = t;
+   this.enabled = false;
+}
+
+
+
+function loadAdditionalDocuments(){
+  loadDocuments();
+}
+
+function loadDocuments(){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      onDocumentsFetched(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "api/documents.php", true);
+  xhttp.send();
+
+}
+
+function loadAdditionalFiles(){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      onFilesFetched(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("GET", "api/connected_files.php?id=%ID%", true);
+  xhttp.send();
+
+}
+
+
+function onDocumentsFetched(json){
+  documents = [];
+  for(var i=0; i<json.data.titles.length; i++){
+    documents.push(new Document(json.data.ids[i], json.data.titles[i], json.data.descriptions[i], json.data.types[i], json.data.paths[i], json.data.pdf[i], json.data.thumb[i]));
+  }
+  updateDocumentList();
+}
+
+function onFilesFetched(json){
+
+  console.log(json);
+  files = [];
+  for(var i=0; i<json.data.titles.length; i++){
+    files.push({"id" : json.data.ids[i], "title" : json.data.titles[i], "path": json.data.paths[i]});
+  }
+  updateFileList();
+}
+
+function updateFileList(){
+  $('#file-browser').empty();
+
+  for(var i=0; i<files.length; i++){
+    $('#file-browser').append(createFile(files[i]));
+  }
+
+  $('#file-browser').append('<div style="display:inline-block" class=" col-xs-6 col-sm-4 col-md-1 col-lg-2 ";><label style="position:relative;width:100%;height:276px;" id="upload-btn" class="btn btn-upload"><input id="file-input-add" onChange="uploadFile()" type="file" style="display: none;"></label><h4 id="thumb-text" style="">Upload</h4></div>');
+
+
+}
+
+
+function uploadFile(){
+  var fu = new FileUploader();
+
+  fu.onUploaded = function(fu){
+    fu.save(function(file, filename){
+
+      sql = new SQLQuery();
+      sql.setMethod('insert');
+      sql.setFrom('didb_files');
+      sql.add('title', filename);
+      sql.add('path', file);
+      sql.query(function(result){
+        sql = new SQLQuery();
+        sql.setMethod('insert');
+        sql.setFrom('didb_documents_additional_files');
+        sql.add('document_id', %ID%);
+        sql.add('file_id', result.id);
+        sql.query();
+
+        location.reload();
+
+      });
+
+
+
+    }, 'user/documents/%ID%/files/');
+  }
+  fu.upload('file-input-add');
+
+}
+
+
+
+function updateDocumentList(){
+  $('#add-documents-browser').empty();
+
+  for(var i=0; i<documents.length; i++){
+    $('#add-documents-browser').append(createItem(documents[i]));
+  }
+
+  loadConnectedDocuments();
+
+}
+
+
+
+  $(function() {
+     $("#file-input-pdf").change(function (){
+       var fileName = $(this).val();
+       if(fileName != ""){
+        $("#upload-btn").addClass("btn-upload-selected");
+       }else{
+        $("#upload-btn").removeClass("btn-upload-selected");
+       }
+     });
+  });
+
+function onLevelsAppear(){
+  //$('#tagarea_level').append('<li onclick="addTag(3)" id="addTagButton3" class="tag">+</li><li id="addTagInput3" style="display:none;padding:7px 16px" class="tag"><input/></li>');
+
+}
+
+enableClickableTags();
+loadAdditionalDocuments();
+loadTags();
+loadLevel();
+loadTypes();
+loadColorPicker();
+loadAdditionalFiles();
+
+
+
+
+
+function loadColorPicker(){
+
+  sql = new SQLQuery();
+  sql.setMethod('select');
+  sql.add('id');
+  sql.add('name');
+  sql.add('color');
+  sql.setFrom('didb_tags_categories');
+  sql.setOrder('id');
+  sql.query(function(obj){
+
+    for(var i=0; i<obj.id.length; i++){
+      $('.color-templates').append($('<option>', {style: "background:" + obj.color[i] ,value: obj.id[i], hex: obj.color[i], text: obj.name[i]}));
+    }
+
+});
+}
+
+
+function addTag(id){
+  $('#addTagButton' + id).css('display', 'none');
+  $('#addTagInput' + id).css('display', 'inline-block');
+
+  $('#addTagInput' + id).outerWidth($('#addTagButton' + id).width());
+
+
+
+  $('#addTagInput' + id).animate({
+   width: '100px'
+  },{ duration: 500,
+     queue: false,
+     complete: function(){$('#newTagInput').focus()},
+
+     step: function() {
+       $('#addTagInput' + id).css("overflow","visible");
+     }});
+
+}
+</script>
